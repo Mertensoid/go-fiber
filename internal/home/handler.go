@@ -1,18 +1,29 @@
 package home
 
-import "github.com/gofiber/fiber/v2"
+import (
+	"github.com/gofiber/fiber/v2"
+	"github.com/rs/zerolog"
+)
 
 type HomeHandler struct {
-	router fiber.Router
+	router       fiber.Router
+	customLogger zerolog.Logger
 }
 
-func NewHandler(router fiber.Router) {
+func NewHandler(router fiber.Router, customLogger *zerolog.Logger) {
 	h := &HomeHandler{
-		router: router,
+		router:       router,
+		customLogger: *customLogger,
 	}
-	h.router.Get("/", h.home)
+	api := h.router.Group("/api")
+	api.Get("/", h.home)
+	api.Get("/error", h.error)
 }
 
 func (h *HomeHandler) home(c *fiber.Ctx) error {
-	return c.SendString("Hello")
+	return fiber.NewError(fiber.StatusBadRequest, "My bad request")
+}
+func (h *HomeHandler) error(c *fiber.Ctx) error {
+	h.customLogger.Info().Msg("Hello")
+	return c.SendString("Error")
 }
