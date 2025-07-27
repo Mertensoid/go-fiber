@@ -17,7 +17,12 @@ func Init() {
 }
 
 type DatabaseConfig struct {
-	url string
+	Url string
+}
+
+type LogConfig struct {
+	Level  int
+	Format string
 }
 
 func getString(s, defaultValue string) string {
@@ -25,7 +30,7 @@ func getString(s, defaultValue string) string {
 	if res == "" {
 		return defaultValue
 	} else {
-		return s
+		return res
 	}
 }
 
@@ -47,6 +52,13 @@ func getBool(s string, defaultValue bool) bool {
 
 func NewDatabaseConfig() *DatabaseConfig {
 	return &DatabaseConfig{
-		url: getString("DATABASE_URL", ""),
+		Url: getString("DATABASE_URL", ""),
+	}
+}
+
+func NewLogConfig() *LogConfig {
+	return &LogConfig{
+		Level:  getInt("LOG_LEVEL", 0),
+		Format: getString("LOG_FORMAT", "json"),
 	}
 }
