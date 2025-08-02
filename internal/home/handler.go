@@ -15,6 +15,11 @@ type User struct {
 	Name string
 }
 
+type Category struct {
+	Id   int
+	Name string
+}
+
 func NewHandler(router fiber.Router, customLogger *zerolog.Logger) {
 	h := &HomeHandler{
 		router:       router,
@@ -22,6 +27,7 @@ func NewHandler(router fiber.Router, customLogger *zerolog.Logger) {
 	}
 	api := h.router.Group("/api")
 	api.Get("/", h.home)
+	api.Get("/cats", h.categories)
 	api.Get("/error", h.error)
 }
 
@@ -44,6 +50,20 @@ func (h *HomeHandler) home(c *fiber.Ctx) error {
 	}
 	return c.Render("page", data)
 }
+
+func (h *HomeHandler) categories(c *fiber.Ctx) error {
+	cats := []Category{
+		{Id: 1, Name: "Еда"},
+		{Id: 1, Name: "Животные"},
+		{Id: 1, Name: "Машины"},
+		{Id: 1, Name: "Спорт"},
+		{Id: 1, Name: "Музыка"},
+		{Id: 1, Name: "Технологии"},
+		{Id: 1, Name: "Прочее"},
+	}
+	return c.Render("categories", cats)
+}
+
 func (h *HomeHandler) error(c *fiber.Ctx) error {
 	h.customLogger.Info().Msg("Hello")
 	return c.SendString("Error")
