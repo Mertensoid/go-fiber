@@ -38,7 +38,7 @@ func (h *HomeHandler) home(c *fiber.Ctx) error {
 		IsRange bool
 		Names   []string
 		Users   []User
-	}{Count: 1, IsAdmin: true, CanUse: true, IsRange: true, Names: names, Users: users}
+	}{Count: 1, IsAdmin: true, CanUse: true, IsRange: false, Names: names, Users: users}
 	if data.IsRange {
 		return c.Render("range_page", data)
 	}

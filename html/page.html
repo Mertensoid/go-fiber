@@ -1,29 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Страница</title>
-</head>
-<body>
-    {{.Count}} -  количество пользователей
-    <br />
-    {{ if .IsAdmin }}
-    <p>Вы админ</p>
-    {{ else }}
-    <p>Вы не админ</p>
-    {{ end }}
-    <br />
-    {{ if eq .Count 0 }}
-    <p>Пользователей нет</p>
-    {{ else if lt .Count 10 }}
-    <p>Пользователей меньше 10</p>
-    {{ else }}
-    <p>Пользователей 10 или более</p>
-    {{ end }}
-    <br />
-    {{ if and .IsAdmin .CanUse }}
-    <p>Админ и может использовать</p>
-    {{ end }}
-</body>
-</html>
+{{ template "base" }}
+
+{{ define "title" }}
+    <title>Главная страница</title>
+{{ end }}
+
+{{ define "content" }}
+    <p>Page 1</p>
+{{ end }}
