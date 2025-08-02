@@ -1,0 +1,20 @@
+package views
+
+import "go-fiber/views/components"
+import "go-fiber/views/layout"
+
+templ Main() {
+    @layout.Layout(layout.LayoutProps{
+        Title: "Найди работу мечты",
+        MetaDescription: "Сайт по поиску работы мечты",
+    }) {
+        <main>
+            @layout.Header() {
+            @components.Title(components.TitleProps{
+                Title: "Найди работу своей мечты",
+            });
+            @components.Subtitle("Простой поиск работы")
+        }
+        </main>
+    }
+}
