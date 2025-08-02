@@ -1,0 +1,14 @@
+package views
+
+import "go-fiber/views/components"
+import "go-fiber/views/layout"
+
+templ Main() {
+    <main>
+    @layout.Header() {
+        @components.Title(components.TitleProps{
+            Title: "Найди работу своей мечты",
+        })
+    }
+    </main>
+}
