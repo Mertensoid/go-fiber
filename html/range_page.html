@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница со слайсом</title>
+</head>
+<body>
+    {{ $test := "Тест" }}
+    <div>
+        {{ range .Names }}
+        <p> {{ . }} </p>
+        {{ end }}
+    </div>
+    {{ $test = "Изменение"}}
+    <div>
+        {{ range .Users }}
+        <p> {{ .Id }} - {{ .Name | ToUpper }} - {{ $test }} </p>
+        {{ end }}
+    </div>
+</body>
+</html>
