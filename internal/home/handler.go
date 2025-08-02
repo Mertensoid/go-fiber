@@ -24,7 +24,8 @@ func (h *HomeHandler) home(c *fiber.Ctx) error {
 	data := struct {
 		Count   int
 		IsAdmin bool
-	}{Count: 1, IsAdmin: true}
+		CanUse  bool
+	}{Count: 1, IsAdmin: true, CanUse: true}
 	return c.Render("page", data)
 }
 func (h *HomeHandler) error(c *fiber.Ctx) error {
