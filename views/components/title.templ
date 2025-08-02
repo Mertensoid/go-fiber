@@ -5,14 +5,14 @@ type TitleProps struct {
 }
 
 templ Title(props TitleProps) {
-    @TitleCSS()
+    @TitleStyle()
     <h1 class="title">
         {props.Title}
     </h1>
     
 }
 
-templ TitleCSS() {
+templ TitleStyle() {
     <style>
     .title {
         font-size: { "70px" };
