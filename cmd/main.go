@@ -22,6 +22,7 @@ func main() {
 		Logger: customLogger,
 	}))
 	app.Use(recover.New())
+	app.Static("/public", "./public")
 
 	home.NewHandler(app, customLogger)
 	app.Listen(":5001")
