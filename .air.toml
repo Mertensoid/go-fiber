@@ -1,4 +1,4 @@
-root = "/Users/admin/Documents/Обучение/GOLANG/PurpleSchool/go-fiber"
+root = "/Users/admin/Documents/Education/GOLANG/PurpleSchool/go-fiber"
 testdata_dir = "testdata"
 tmp_dir = "tmp"
 

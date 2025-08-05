@@ -9,7 +9,7 @@ import (
 )
 
 func Init() {
-	if err := godotenv.Load("/Users/admin/Documents/Обучение/GOLANG/PurpleSchool/go-fiber/.env"); err != nil {
+	if err := godotenv.Load("/Users/admin/Documents/Education/GOLANG/PurpleSchool/go-fiber/.env"); err != nil {
 		log.Println(err.Error())
 		return
 	}
