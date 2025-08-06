@@ -10,7 +10,7 @@ templ Main() {
         Title: "Найди работу мечты",
         MetaDescription: "Сайт по поиску работы мечты",
     }) {
-        <main>
+        <main class="main">
             @layout.Header() {
                 @components.Title(components.TitleProps{
                     Title: "Найди работу своей мечты",
@@ -23,5 +23,12 @@ templ Main() {
 }
 
 templ MainStyle() {
-    
+    <style>
+        .main {
+            background-color: var(--color-primary-back);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
 }

@@ -43,7 +43,7 @@ func VacancyForm() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<div id=\"vacancy-result\"></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<div class=\"vacancy-result\" id=\"vacancy-result\"></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -148,7 +148,7 @@ func VacancyFormStyle() templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<style>\n        .main__submit-form {\n            display: flex;\n            flex-direction: column;\n            background-color: var(--color-primary-back);\n            align-items: center;\n            padding: 20px;\n        }\n        .input-grid {\n            display: grid;\n            grid-auto-flow: row;\n            grid-template-columns: 435px 435px;\n            grid-template-rows: repeat(4, 80px);\n            column-gap: 10px;\n            row-gap: 10px;\n        }\n    </style>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<style>\n        .main__submit-form {\n            max-width: 880px;\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n        }\n        .input-grid {\n            \n            display: grid;\n            grid-auto-flow: row;\n            grid-template-columns: 435px 435px;\n            grid-template-rows: repeat(4, 80px);\n            column-gap: 10px;\n            row-gap: 10px;\n        }\n        .vacancy-result {\n            width: 100%;\n        }\n    </style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
