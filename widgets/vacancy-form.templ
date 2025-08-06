@@ -1,0 +1,63 @@
+package widgets
+
+import "go-fiber/views/components"
+
+templ VacancyForm() {
+    @VacancyFormStyle()
+    <div class="main__submit-form">
+                @components.FormTitle("Опубликовать вакансию")
+                @components.FormSubtitle("Введите все необходимые данные для публикации")
+                <div >
+                    <div class="input-grid">
+                        @components.Input(components.InputProps{
+                            Name: "role",
+                            Placeholder: "Должность",
+                        })
+                        @components.Input(components.InputProps{
+                            Name: "company",
+                            Placeholder: "Название компании",
+                        })
+                        @components.Input(components.InputProps{
+                            Name: "sphere",
+                            Placeholder: "Сфера компании",
+                        })
+                        @components.Input(components.InputProps{
+                            Name: "salary",
+                            Placeholder: "Заработная плата",
+                        })
+                        @components.Input(components.InputProps{
+                            Name: "location",
+                            Placeholder: "Расположение",
+                        })
+                        @components.Input(components.InputProps{
+                            Name: "email",
+                            Placeholder: "Контактный e-mail",
+                        })
+                        @components.SubmitButton() {
+                            <span>Опубликовать вакансию</span>
+                        }
+                    </div>
+                    
+                </div>
+            </div>
+}
+
+templ VacancyFormStyle() {
+    <style>
+        .main__submit-form {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--color-primary-back);
+            align-items: center;
+            padding: 20px;
+        }
+        .input-grid {
+            display: grid;
+            grid-auto-flow: row;
+            grid-template-columns: 435px 435px;
+            grid-template-rows: repeat(4, 80px);
+            column-gap: 10px;
+            row-gap: 10px;
+        }
+    </style>
+}

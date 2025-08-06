@@ -2,6 +2,7 @@ package views
 
 import "go-fiber/views/components"
 import "go-fiber/views/layout"
+import "go-fiber/widgets"
 
 templ Main() {
     @MainStyle()
@@ -16,22 +17,11 @@ templ Main() {
                 });
                 @components.Subtitle("Простой поиск работы")    
             }
-            <div class="main__submit-form">
-                @components.FormTitle("Опубликовать вакансию")
-                @components.Input(components.InputProps{
-                    Name: "role",
-                    Placeholder: "Должность",
-                })
-                @components.SubmitButton("/send")
-            </div>
+            @widgets.VacancyForm()
         </main>
     }
 }
 
 templ MainStyle() {
-    <style>
-        .main__submit-form {
-            background-color: var(--color-gray);
-        }
-    </style>
+    
 }
