@@ -2,7 +2,7 @@ package views
 
 import "go-fiber/views/components"
 import "go-fiber/views/layout"
-import "go-fiber/widgets"
+import "go-fiber/views/widgets"
 
 templ Main() {
     @MainStyle()
@@ -14,7 +14,7 @@ templ Main() {
             @layout.Header() {
                 @components.Title(components.TitleProps{
                     Title: "Найди работу своей мечты",
-                });
+                })
                 @components.Subtitle("Простой поиск работы")    
             }
             @widgets.VacancyForm()
