@@ -1,0 +1,22 @@
+package components
+
+templ SubmitButton(href string) {
+    @SubmitButtonStyle()
+    <input class="submit-button" type="submit" href={templ.SafeURL(href)}>{ children... }</input>
+}
+
+templ SubmitButtonStyle() {
+    <style>
+        .submit-button {
+            padding: 15px 20px;
+            background-color: var(--color-primary);
+            color: var(--color-white);
+            text-decoration: none;
+            border-radius: 8px;
+        }
+        .submit-button:hover {
+            background-color: var(--color-primary-hover);
+            cursor: pointer;
+        }
+    </style>
+}

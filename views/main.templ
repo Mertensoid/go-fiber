@@ -4,17 +4,34 @@ import "go-fiber/views/components"
 import "go-fiber/views/layout"
 
 templ Main() {
+    @MainStyle()
     @layout.Layout(layout.LayoutProps{
         Title: "Найди работу мечты",
         MetaDescription: "Сайт по поиску работы мечты",
     }) {
         <main>
             @layout.Header() {
-            @components.Title(components.TitleProps{
-                Title: "Найди работу своей мечты",
-            });
-            @components.Subtitle("Простой поиск работы")
-        }
+                @components.Title(components.TitleProps{
+                    Title: "Найди работу своей мечты",
+                });
+                @components.Subtitle("Простой поиск работы")    
+            }
+            <div class="main__submit-form">
+                @components.FormTitle("Опубликовать вакансию")
+                @components.Input(components.InputProps{
+                    Name: "role",
+                    Placeholder: "Должность",
+                })
+                @components.SubmitButton("/send")
+            </div>
         </main>
     }
+}
+
+templ MainStyle() {
+    <style>
+        .main__submit-form {
+            background-color: var(--color-gray);
+        }
+    </style>
 }
