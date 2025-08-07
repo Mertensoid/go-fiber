@@ -4,6 +4,7 @@ import (
 	"go-fiber/pkg/templadapter"
 	"go-fiber/pkg/validator"
 	"go-fiber/views/components"
+	"strconv"
 	"time"
 
 	"github.com/a-h/templ"
@@ -28,11 +29,43 @@ func NewHandler(router fiber.Router, logger *zerolog.Logger) {
 }
 
 func (h *VacancyHandler) createVacancy(c *fiber.Ctx) error {
+	salary, _ := strconv.ParseInt(c.FormValue("salary"), 10, 64)
 	form := VacancyCreateForm{
-		Email: c.FormValue("email"),
+		Role:     c.FormValue("role"),
+		Company:  c.FormValue("company"),
+		Sphere:   c.FormValue("sphere"),
+		Salary:   int(salary),
+		Location: c.FormValue("location"),
+		Email:    c.FormValue("email"),
 	}
 	time.Sleep(time.Second * 2)
 	errors := validate.Validate(
+		&validators.StringIsPresent{
+			Name:    "Role",
+			Field:   form.Role,
+			Message: "Должность не задана",
+		},
+		&validators.StringIsPresent{
+			Name:    "Company",
+			Field:   form.Company,
+			Message: "Название компании не задано",
+		},
+		&validators.StringIsPresent{
+			Name:    "Sphere",
+			Field:   form.Sphere,
+			Message: "Сфера деятельности компании не задана",
+		},
+		&validators.IntIsGreaterThan{
+			Name:     "Salary",
+			Field:    form.Salary,
+			Compared: 0,
+			Message:  "Зароботная плата не задана",
+		},
+		&validators.StringIsPresent{
+			Name:    "Location",
+			Field:   form.Location,
+			Message: "Расположение места работы не задано",
+		},
 		&validators.EmailIsPresent{
 			Name:    "Email",
 			Field:   form.Email,
