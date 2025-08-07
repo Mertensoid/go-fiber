@@ -1,0 +1,19 @@
+package components
+
+templ FormSubtitle(subtitle string) {
+    @FormSubTitleStyle()
+    <div class="form-subtitle">
+        {subtitle}
+    </div>
+}
+
+templ FormSubTitleStyle() {
+    <style>
+    .form-subtitle {
+        font-size: 16px;
+        color: var(--color-black);
+        margin-bottom: 20px;
+        margin-top: 0px;
+    }
+    </style>
+}

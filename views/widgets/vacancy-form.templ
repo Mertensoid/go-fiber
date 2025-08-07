@@ -1,0 +1,88 @@
+package widgets
+
+import "go-fiber/views/components"
+
+templ VacancyForm() {
+    @VacancyFormStyle()
+    <div class="main__submit-form">
+                @components.FormTitle("Опубликовать вакансию")
+                <div class="vacancy-result" id="vacancy-result"></div>
+                @components.FormSubtitle("Введите все необходимые данные для публикации")
+                <div >
+                    <form class="input-grid" hx-post="/vacancy" hx-trigger="submit" hx-target="#vacancy-result" hx-swap="innerHTML swap:1s">
+                    
+                        @components.Input(components.InputProps{
+                            Name: "role",
+                            Placeholder: "Должность",
+                        })
+                        @components.Input(components.InputProps{
+                            Name: "company",
+                            Placeholder: "Название компании",
+                        })
+                        @components.Input(components.InputProps{
+                            Name: "sphere",
+                            Placeholder: "Сфера компании",
+                        })
+                        @components.Input(components.InputProps{
+                            Name: "salary",
+                            Placeholder: "Заработная плата",
+                        })
+                        @components.Input(components.InputProps{
+                            Name: "location",
+                            Placeholder: "Расположение",
+                        })
+                        @components.Input(components.InputProps{
+                            Name: "email",
+                            Placeholder: "Контактный e-mail",
+                        })
+                        @components.SubmitButton() {
+                            <div class="vacancy-form__submit">Опубликовать вакансию</div>
+                            <div class="vacancy-form__loader"></div>
+                        }
+                    
+                    </form>
+                </div>  
+            </div>
+}
+
+templ VacancyFormStyle() {
+    <style>
+        .main__submit-form {
+            max-width: 880px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .input-grid {
+            display: grid;
+            grid-auto-flow: row;
+            grid-template-columns: 435px 435px;
+            grid-template-rows: repeat(4, 80px);
+            column-gap: 10px;
+            row-gap: 10px;
+        }
+        .vacancy-result {
+            width: 100%;
+        }
+        .vacancy-form__loader {
+            display: none;
+        }
+        .htmx-request .vacancy-form__submit {
+            display: none;
+        }
+        .htmx-request .vacancy-form__loader {
+            display: block;
+            width: 50px;
+            aspect-ratio: 1;
+            --_c:no-repeat radial-gradient(farthest-side,#25b09b 92%,#0000);
+            background: 
+                var(--_c) top,
+                var(--_c) left,
+                var(--_c) right,
+                var(--_c) bottom;
+            background-size: 12px 12px;
+            animation: l7 1s infinite;
+        }
+        @keyframes l7 {to{transform: rotate(.5turn)}}
+    </style>
+}

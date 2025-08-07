@@ -2,19 +2,33 @@ package views
 
 import "go-fiber/views/components"
 import "go-fiber/views/layout"
+import "go-fiber/views/widgets"
 
 templ Main() {
+    @MainStyle()
     @layout.Layout(layout.LayoutProps{
         Title: "Найди работу мечты",
         MetaDescription: "Сайт по поиску работы мечты",
     }) {
-        <main>
+        <main class="main">
             @layout.Header() {
-            @components.Title(components.TitleProps{
-                Title: "Найди работу своей мечты",
-            });
-            @components.Subtitle("Простой поиск работы")
-        }
+                @components.Title(components.TitleProps{
+                    Title: "Найди работу своей мечты",
+                })
+                @components.Subtitle("Простой поиск работы")    
+            }
+            @widgets.VacancyForm()
         </main>
     }
+}
+
+templ MainStyle() {
+    <style>
+        .main {
+            background-color: var(--color-primary-back);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    </style>
 }
