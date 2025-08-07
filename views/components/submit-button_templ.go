@@ -70,7 +70,7 @@ func SubmitButtonStyle() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<style>\n        .submit-button {\n            padding: 14px 28px;\n            background-color: var(--color-primary);\n            color: var(--color-white);\n            border: none;\n            border-radius: 20px;\n            grid-column-start: 1;\n            grid-column-end: 3;\n            align-self: center;\n            width: 283px;\n            height: 80px;\n            justify-self: center;\n            font-size: 16px;\n        }\n        .submit-button:hover {\n            background-color: var(--color-primary-hover);\n            cursor: pointer;\n        }\n    </style>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<style>\n        .submit-button {\n            padding: 14px 28px;\n            background-color: var(--color-primary);\n            color: var(--color-white);\n            border: none;\n            border-radius: 20px;\n            grid-column-start: 1;\n            grid-column-end: 3;\n            align-self: center;\n            width: 283px;\n            height: 80px;\n            justify-self: center;\n            font-size: 16px;\n            display: flex;\n            justify-content: center;\n            align-items: center;\n        }\n        .submit-button:hover {\n            background-color: var(--color-primary-hover);\n            cursor: pointer;\n        }\n    </style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

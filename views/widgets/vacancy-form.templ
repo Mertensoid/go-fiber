@@ -36,7 +36,8 @@ templ VacancyForm() {
                             Placeholder: "Контактный e-mail",
                         })
                         @components.SubmitButton() {
-                            <span>Опубликовать вакансию</span>
+                            <div class="vacancy-form__submit">Опубликовать вакансию</div>
+                            <div class="vacancy-form__loader"></div>
                         }
                     
                     </form>
@@ -53,7 +54,6 @@ templ VacancyFormStyle() {
             align-items: center;
         }
         .input-grid {
-            
             display: grid;
             grid-auto-flow: row;
             grid-template-columns: 435px 435px;
@@ -64,5 +64,25 @@ templ VacancyFormStyle() {
         .vacancy-result {
             width: 100%;
         }
+        .vacancy-form__loader {
+            display: none;
+        }
+        .htmx-request .vacancy-form__submit {
+            display: none;
+        }
+        .htmx-request .vacancy-form__loader {
+            display: block;
+            width: 50px;
+            aspect-ratio: 1;
+            --_c:no-repeat radial-gradient(farthest-side,#25b09b 92%,#0000);
+            background: 
+                var(--_c) top,
+                var(--_c) left,
+                var(--_c) right,
+                var(--_c) bottom;
+            background-size: 12px 12px;
+            animation: l7 1s infinite;
+        }
+        @keyframes l7 {to{transform: rotate(.5turn)}}
     </style>
 }

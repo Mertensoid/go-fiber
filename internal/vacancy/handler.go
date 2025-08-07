@@ -4,6 +4,7 @@ import (
 	"go-fiber/pkg/templadapter"
 	"go-fiber/pkg/validator"
 	"go-fiber/views/components"
+	"time"
 
 	"github.com/a-h/templ"
 	"github.com/gobuffalo/validate"
@@ -30,6 +31,7 @@ func (h *VacancyHandler) createVacancy(c *fiber.Ctx) error {
 	form := VacancyCreateForm{
 		Email: c.FormValue("email"),
 	}
+	time.Sleep(time.Second * 2)
 	errors := validate.Validate(
 		&validators.EmailIsPresent{
 			Name:    "Email",
