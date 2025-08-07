@@ -2,8 +2,12 @@ package vacancy
 
 import (
 	"go-fiber/pkg/templadapter"
+	"go-fiber/pkg/validator"
 	"go-fiber/views/components"
 
+	"github.com/a-h/templ"
+	"github.com/gobuffalo/validate"
+	"github.com/gobuffalo/validate/validators"
 	"github.com/gofiber/fiber/v2"
 	"github.com/rs/zerolog"
 )
@@ -23,8 +27,22 @@ func NewHandler(router fiber.Router, logger *zerolog.Logger) {
 }
 
 func (h *VacancyHandler) createVacancy(c *fiber.Ctx) error {
-	email := c.FormValue("email")
-	h.logger.Info().Msg(email)
-	component := components.Notification("Вакансия успешно создана")
+	form := VacancyCreateForm{
+		Email: c.FormValue("email"),
+	}
+	errors := validate.Validate(
+		&validators.EmailIsPresent{
+			Name:    "Email",
+			Field:   form.Email,
+			Message: "Email не задан или не верный",
+		},
+	)
+
+	var component templ.Component
+	if len(errors.Errors) > 0 {
+		component = components.Notification(validator.ParseErrors(*errors), components.NotificationFail)
+	} else {
+		component = components.Notification("Вакансия успешно создана", components.NotificationSuccess)
+	}
 	return templadapter.Render(c, component)
 }
