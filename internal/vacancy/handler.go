@@ -5,7 +5,6 @@ import (
 	"go-fiber/pkg/validator"
 	"go-fiber/views/components"
 	"net/http"
-	"time"
 
 	"github.com/a-h/templ"
 	"github.com/gobuffalo/validate"
@@ -39,7 +38,6 @@ func (h *VacancyHandler) createVacancy(c *fiber.Ctx) error {
 		Location: c.FormValue("location"),
 		Email:    c.FormValue("email"),
 	}
-	time.Sleep(time.Second * 2)
 	errors := validate.Validate(
 		&validators.StringIsPresent{
 			Name:    "Role",
@@ -81,12 +79,14 @@ func (h *VacancyHandler) createVacancy(c *fiber.Ctx) error {
 	} else {
 		component = components.Notification("Вакансия успешно создана", components.NotificationSuccess)
 		status = http.StatusOK
+
+		err := h.repository.addVacancy(form)
+		if err != nil {
+			h.logger.Error().Msg(err.Error())
+			component = components.Notification("Ошибка на сервере", components.NotificationFail)
+			status = http.StatusBadRequest
+		}
 	}
-	err := h.repository.addVacancy(form)
-	if err != nil {
-		h.logger.Error().Msg(err.Error())
-		component = components.Notification("Ошибка на сервере", components.NotificationFail)
-		status = http.StatusBadRequest
-	}
+
 	return templadapter.Render(c, component, status)
 }
