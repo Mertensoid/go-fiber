@@ -4,7 +4,6 @@ import (
 	"go-fiber/pkg/templadapter"
 	"go-fiber/pkg/validator"
 	"go-fiber/views/components"
-	"strconv"
 	"time"
 
 	"github.com/a-h/templ"
@@ -31,12 +30,11 @@ func NewHandler(router fiber.Router, logger *zerolog.Logger, repository *Vacancy
 }
 
 func (h *VacancyHandler) createVacancy(c *fiber.Ctx) error {
-	salary, _ := strconv.ParseInt(c.FormValue("salary"), 10, 64)
 	form := VacancyCreateForm{
 		Role:     c.FormValue("role"),
 		Company:  c.FormValue("company"),
 		Sphere:   c.FormValue("sphere"),
-		Salary:   int(salary),
+		Salary:   c.FormValue("salary"),
 		Location: c.FormValue("location"),
 		Email:    c.FormValue("email"),
 	}
@@ -57,11 +55,10 @@ func (h *VacancyHandler) createVacancy(c *fiber.Ctx) error {
 			Field:   form.Sphere,
 			Message: "Сфера деятельности компании не задана",
 		},
-		&validators.IntIsGreaterThan{
-			Name:     "Salary",
-			Field:    form.Salary,
-			Compared: 0,
-			Message:  "Зароботная плата не задана",
+		&validators.StringIsPresent{
+			Name:    "Salary",
+			Field:   form.Salary,
+			Message: "Зароботная плата не задана",
 		},
 		&validators.StringIsPresent{
 			Name:    "Location",
@@ -80,6 +77,11 @@ func (h *VacancyHandler) createVacancy(c *fiber.Ctx) error {
 		component = components.Notification(validator.ParseErrors(*errors), components.NotificationFail)
 	} else {
 		component = components.Notification("Вакансия успешно создана", components.NotificationSuccess)
+	}
+	err := h.repository.addVacancy(form)
+	if err != nil {
+		h.logger.Error().Msg(err.Error())
+		component = components.Notification("Ошибка на сервере", components.NotificationFail)
 	}
 	return templadapter.Render(c, component)
 }
