@@ -30,13 +30,12 @@ func NewHandler(router fiber.Router, customLogger *zerolog.Logger) {
 		customLogger: *customLogger,
 	}
 	h.router.Get("/", h.home)
-	// h.router.Get("/cats", h.categories)
 	h.router.Get("/error", h.error)
 }
 
 func (h *HomeHandler) home(c *fiber.Ctx) error {
 	component := views.Main()
-	return templadapter.Render(c, component, http.StatusOK)
+	return templadapter.Render(c, component, http.StatusBadRequest)
 }
 
 // func (h *HomeHandler) categories(c *fiber.Ctx) error {
