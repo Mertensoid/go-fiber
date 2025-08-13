@@ -1,0 +1,25 @@
+package components
+
+templ VacancyPassTime(text string) {
+    @VacancyPassTimeStyle()
+    <div class="vacancy-pass-time">
+        {text}
+    </div>
+}
+
+templ VacancyPassTimeStyle() {
+    <style>
+        .vacancy-pass-time {
+            height: 28px;
+            padding: 5px;
+            width: min-content;
+            background-color: #30968910;
+            color: #309689;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+    </style>
+}

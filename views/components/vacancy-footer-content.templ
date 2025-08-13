@@ -1,0 +1,49 @@
+package components
+
+templ VacancyFooterContent(sphere string, salary string, location string) {
+    @VacancyFooterContentStyle()
+    <div class="vacancy-footer-content">
+        <div class="vacancy-footer-content-block">
+            <img src="/public/images/vacancy-card-footer-content-sphere.svg" class="vacancy-footer-content-image">
+            <div class="vacancy-footer-content-text">{sphere}</div>
+        </div>
+        <div class="vacancy-footer-content-block">
+            <img src="/public/images/vacancy-card-footer-content-salary.svg" class="vacancy-footer-content-image">
+            <div class="vacancy-footer-content-text">{salary}</div>
+        </div>
+        <div class="vacancy-footer-content-block">
+            <img src="/public/images/vacancy-card-footer-content-location.svg" class="vacancy-footer-content-image">
+            <div class="vacancy-footer-content-text">{location}</div>
+        </div>
+    </div>
+}
+
+templ VacancyFooterContentStyle() {
+    <style>
+        .vacancy-footer-content {
+            height: 24px;
+            width: min-content;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            gap: 12px;
+        }
+        .vacancy-footer-content-block {
+            height: 24px;
+            width: min-content;
+            display: flex;
+            justify-content: left;
+            align-items: center;
+            gap: 20px;
+        }
+        .vacancy-footer-content-image {
+            width: 24px;
+            height: 24px;
+        }
+        .vacancy-footer-content-text {
+            color: gray;
+            font-size: 16px;
+            font-weight: 700;
+        }
+    </style>
+}

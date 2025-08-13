@@ -1,0 +1,45 @@
+package layout
+
+import "go-fiber/views/components"
+
+templ VacancyCard() {
+    @VacancyCardStyle()
+    <div class="vacancy-card">
+        <div class="vacancy-card-header">
+            @components.VacancyPassTime("Lorem Ipsum")
+            @components.VacancyCardHeaderContent("Role", "Company")
+        </div>
+        <div class="vacancy-card-footer">
+            @components.VacancyFooterContent("Sphere", "Salary", "Location")
+            @components.VacancyFooterButton()
+        </div>
+    </div>
+}
+
+templ VacancyCardStyle() {
+    <style>
+        .vacancy-card {
+            width: 1296px;
+            height: 251px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: yellow;
+        }
+        .vacancy-card-header {
+            height: 103px;
+            background-color: red;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .vacancy-card-footer {
+            height: 40px;
+            background-color: green;
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+        }
+    </style>
+}
