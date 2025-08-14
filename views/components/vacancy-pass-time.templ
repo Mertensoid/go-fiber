@@ -1,11 +1,13 @@
 package components
 
 import "time"
+import "github.com/rvflash/elapsed"
 
 templ VacancyPassTime(time time.Time) {
+    {{ date := elapsed.LocalTime(time, "ru")}}
     @VacancyPassTimeStyle()
     <div class="vacancy-pass-time">
-        {time.String()}
+        {date}
     </div>
 }
 
