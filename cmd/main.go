@@ -32,7 +32,7 @@ func main() {
 	vacancyRepository := vacancy.NewVacancyRepository(dbpool, customLogger)
 
 	// Handlers
-	home.NewHandler(app, customLogger)
+	home.NewHandler(app, customLogger, vacancyRepository)
 	vacancy.NewHandler(app, customLogger, vacancyRepository)
 	app.Listen(":5001")
 }

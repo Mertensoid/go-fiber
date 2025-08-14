@@ -3,7 +3,7 @@ package components
 templ VacancyCardHeaderContent(role string, company string) {
     @VacancyCardHeaderContentStyle()
     <div class="vacancy-card-header-content">
-        <img src="" class="vacancy-image"/>
+        <img src="/public/images/vacancy-logo-1.svg" class="vacancy-image"/>
         <div class="vacancy-card-header-data">
             <div class="vacancy-card-role">
                 {role}
@@ -33,7 +33,7 @@ templ VacancyCardHeaderContentStyle() {
         }
         .vacancy-card-role {
             font-size: 28px;
-            font-weight: 700;
+            font-weight: 500;
         }
         .vacancy-card-company {
             font-size: 16px;

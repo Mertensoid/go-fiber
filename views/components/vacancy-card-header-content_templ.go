@@ -33,7 +33,7 @@ func VacancyCardHeaderContent(role string, company string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"vacancy-card-header-content\"><img src=\"\" class=\"vacancy-image\"><div class=\"vacancy-card-header-data\"><div class=\"vacancy-card-role\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"vacancy-card-header-content\"><img src=\"/public/images/vacancy-logo-1.svg\" class=\"vacancy-image\"><div class=\"vacancy-card-header-data\"><div class=\"vacancy-card-role\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -88,7 +88,7 @@ func VacancyCardHeaderContentStyle() templ.Component {
 			templ_7745c5c3_Var4 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<style>\n        .vacancy-card-header-content {\n            height: 51px;\n            display: flex;\n        }\n        .vacancy-image {\n            height: 40px;\n            width: 40px;\n            margin-right: 20px;\n        }\n        .vacancy-card-header-data {\n            display: flex;\n            flex-direction: column;\n            justify-content: space-between;\n        }\n        .vacancy-card-role {\n            font-size: 28px;\n            font-weight: 700;\n        }\n        .vacancy-card-company {\n            font-size: 16px;\n        }\n    </style>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<style>\n        .vacancy-card-header-content {\n            height: 51px;\n            display: flex;\n        }\n        .vacancy-image {\n            height: 40px;\n            width: 40px;\n            margin-right: 20px;\n        }\n        .vacancy-card-header-data {\n            display: flex;\n            flex-direction: column;\n            justify-content: space-between;\n        }\n        .vacancy-card-role {\n            font-size: 28px;\n            font-weight: 500;\n        }\n        .vacancy-card-company {\n            font-size: 16px;\n        }\n    </style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

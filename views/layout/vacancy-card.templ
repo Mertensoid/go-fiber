@@ -1,16 +1,27 @@
 package layout
 
 import "go-fiber/views/components"
+import "time"
 
-templ VacancyCard() {
+type VacancyCardProps struct {
+    Ceratedat time.Time
+    Role     string
+	Company  string
+	Sphere   string
+	Salary   string
+	Location string
+	Email    string
+}
+
+templ VacancyCard(props VacancyCardProps) {
     @VacancyCardStyle()
     <div class="vacancy-card">
         <div class="vacancy-card-header">
-            @components.VacancyPassTime("Lorem Ipsum")
-            @components.VacancyCardHeaderContent("Role", "Company")
-        </div>
+            @components.VacancyPassTime(props.Ceratedat)
+            @components.VacancyCardHeaderContent(props.Role, props.Company)
+        </div> 
         <div class="vacancy-card-footer">
-            @components.VacancyFooterContent("Sphere", "Salary", "Location")
+            @components.VacancyFooterContent(props.Sphere, props.Salary, props.Location)
             @components.VacancyFooterButton()
         </div>
     </div>
@@ -19,24 +30,26 @@ templ VacancyCard() {
 templ VacancyCardStyle() {
     <style>
         .vacancy-card {
-            width: 1296px;
+            max-width: 1296px;
+            width: 100%;
             height: 251px;
             padding: 40px;
+            margin: 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            background-color: yellow;
+            box-shadow: 0 3px 8px 0 rgba(48,150,137,0.16);
+            border-radius: 20px;
+            background-color: white;
         }
         .vacancy-card-header {
             height: 103px;
-            background-color: red;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
         .vacancy-card-footer {
             height: 40px;
-            background-color: green;
             display: flex;
             justify-content: space-between;
             align-items: end;

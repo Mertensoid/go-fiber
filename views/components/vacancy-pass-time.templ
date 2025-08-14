@@ -1,9 +1,11 @@
 package components
 
-templ VacancyPassTime(text string) {
+import "time"
+
+templ VacancyPassTime(time time.Time) {
     @VacancyPassTimeStyle()
     <div class="vacancy-pass-time">
-        {text}
+        {time.String()}
     </div>
 }
 

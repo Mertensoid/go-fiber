@@ -3,8 +3,9 @@ package views
 import "go-fiber/views/components"
 import "go-fiber/views/layout"
 import "go-fiber/views/widgets"
+import "go-fiber/internal/vacancy"
 
-templ Main() {
+templ Main(vacancies []vacancy.Vacancy) {
     @MainStyle()
     @layout.Layout(layout.LayoutProps{
         Title: "Найди работу мечты",
@@ -17,7 +18,18 @@ templ Main() {
                 })
                 @components.Subtitle("Простой поиск работы")    
             }
-            @layout.VacancyCard()
+            for _, vacancy := range vacancies {
+                @layout.VacancyCard(layout.VacancyCardProps{
+                    Role: vacancy.Role,
+                    Company: vacancy.Company,
+                    Sphere: vacancy.Sphere,
+                    Salary: vacancy.Salary,
+                    Email: vacancy.Email,
+                    Location: vacancy.Location,
+                    Ceratedat: vacancy.CreatedAt,
+                })
+            }
+            
             @widgets.VacancyForm()
         </main>
     }

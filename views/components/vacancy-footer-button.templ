@@ -3,14 +3,21 @@ package components
 templ VacancyFooterButton() {
     @VacancyFooterButtonStyle()
     <div class="vacancy-footer-button">
-
+        Откликнуться
     </div>
 }
 
 templ VacancyFooterButtonStyle() {
     <style>
         .vacancy-footer-button {
-            
+            height: 40px;
+            width: min-content;
+            padding: 0 20px;
+            border-radius: 10px;
+            color: white;
+            background-color: #309689;
+            display: flex;
+            align-items: center;
         }
     </style>
 }

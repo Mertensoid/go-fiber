@@ -9,8 +9,19 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import "go-fiber/views/components"
+import "time"
 
-func VacancyCard() templ.Component {
+type VacancyCardProps struct {
+	Ceratedat time.Time
+	Role      string
+	Company   string
+	Sphere    string
+	Salary    string
+	Location  string
+	Email     string
+}
+
+func VacancyCard(props VacancyCardProps) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -39,11 +50,11 @@ func VacancyCard() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = components.VacancyPassTime("Lorem Ipsum").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.VacancyPassTime(props.Ceratedat).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = components.VacancyCardHeaderContent("Role", "Company").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.VacancyCardHeaderContent(props.Role, props.Company).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -51,7 +62,7 @@ func VacancyCard() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = components.VacancyFooterContent("Sphere", "Salary", "Location").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.VacancyFooterContent(props.Sphere, props.Salary, props.Location).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -88,7 +99,7 @@ func VacancyCardStyle() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<style>\n        .vacancy-card {\n            width: 1296px;\n            height: 251px;\n            padding: 40px;\n            display: flex;\n            flex-direction: column;\n            justify-content: space-between;\n            background-color: yellow;\n        }\n        .vacancy-card-header {\n            height: 103px;\n            background-color: red;\n            display: flex;\n            flex-direction: column;\n            justify-content: space-between;\n        }\n        .vacancy-card-footer {\n            height: 40px;\n            background-color: green;\n            display: flex;\n            justify-content: space-between;\n            align-items: end;\n        }\n    </style>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<style>\n        .vacancy-card {\n            max-width: 1296px;\n            width: 100%;\n            height: 251px;\n            padding: 40px;\n            margin: 20px;\n            display: flex;\n            flex-direction: column;\n            justify-content: space-between;\n            box-shadow: 0 3px 8px 0 rgba(48,150,137,0.16);\n            border-radius: 20px;\n            background-color: white;\n        }\n        .vacancy-card-header {\n            height: 103px;\n            display: flex;\n            flex-direction: column;\n            justify-content: space-between;\n        }\n        .vacancy-card-footer {\n            height: 40px;\n            display: flex;\n            justify-content: space-between;\n            align-items: end;\n        }\n    </style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
