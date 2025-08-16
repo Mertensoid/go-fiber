@@ -86,19 +86,9 @@ func Main(vacancies []vacancy.Vacancy) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			for _, vacancy := range vacancies {
-				templ_7745c5c3_Err = layout.VacancyCard(layout.VacancyCardProps{
-					Role:      vacancy.Role,
-					Company:   vacancy.Company,
-					Sphere:    vacancy.Sphere,
-					Salary:    vacancy.Salary,
-					Email:     vacancy.Email,
-					Location:  vacancy.Location,
-					Ceratedat: vacancy.CreatedAt,
-				}).Render(ctx, templ_7745c5c3_Buffer)
-				if templ_7745c5c3_Err != nil {
-					return templ_7745c5c3_Err
-				}
+			templ_7745c5c3_Err = widgets.VacancyList(vacancies).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
 			}
 			templ_7745c5c3_Err = widgets.VacancyForm().Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
@@ -142,7 +132,7 @@ func MainStyle() templ.Component {
 			templ_7745c5c3_Var4 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<style>\n        .main {\n            background-color: var(--color-primary-back);\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n        }\n    </style>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<style>\n        .main {\n            width: 100%;\n            background-color: var(--color-primary-back);\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n        }\n    </style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

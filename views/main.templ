@@ -18,18 +18,7 @@ templ Main(vacancies []vacancy.Vacancy) {
                 })
                 @components.Subtitle("Простой поиск работы")    
             }
-            for _, vacancy := range vacancies {
-                @layout.VacancyCard(layout.VacancyCardProps{
-                    Role: vacancy.Role,
-                    Company: vacancy.Company,
-                    Sphere: vacancy.Sphere,
-                    Salary: vacancy.Salary,
-                    Email: vacancy.Email,
-                    Location: vacancy.Location,
-                    Ceratedat: vacancy.CreatedAt,
-                })
-            }
-            
+            @widgets.VacancyList(vacancies)
             @widgets.VacancyForm()
         </main>
     }
@@ -38,6 +27,7 @@ templ Main(vacancies []vacancy.Vacancy) {
 templ MainStyle() {
     <style>
         .main {
+            width: 100%;
             background-color: var(--color-primary-back);
             display: flex;
             flex-direction: column;
