@@ -5,7 +5,7 @@ import "go-fiber/views/layout"
 import "go-fiber/views/widgets"
 import "go-fiber/internal/vacancy"
 
-templ Main(vacancies []vacancy.Vacancy) {
+templ Main(vacancies []vacancy.Vacancy, pagesCount int, page int) {
     @MainStyle()
     @layout.Layout(layout.LayoutProps{
         Title: "Найди работу мечты",
@@ -18,7 +18,7 @@ templ Main(vacancies []vacancy.Vacancy) {
                 })
                 @components.Subtitle("Простой поиск работы")    
             }
-            @widgets.VacancyList(vacancies)
+            @widgets.VacancyList(vacancies, pagesCount, page)
             @widgets.VacancyForm()
         </main>
     }
