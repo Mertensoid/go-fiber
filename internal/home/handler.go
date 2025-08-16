@@ -1,16 +1,20 @@
 package home
 
 import (
+	"go-fiber/internal/vacancy"
 	"go-fiber/pkg/templadapter"
 	"go-fiber/views"
+	"math"
+	"net/http"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/rs/zerolog"
 )
 
 type HomeHandler struct {
-	router       fiber.Router
-	customLogger zerolog.Logger
+	router     fiber.Router
+	logger     zerolog.Logger
+	repository vacancy.VacancyRepository
 }
 
 type User struct {
@@ -23,35 +27,30 @@ type Category struct {
 	Name string
 }
 
-func NewHandler(router fiber.Router, customLogger *zerolog.Logger) {
+func NewHandler(router fiber.Router, customLogger *zerolog.Logger, vacancy *vacancy.VacancyRepository) {
 	h := &HomeHandler{
-		router:       router,
-		customLogger: *customLogger,
+		router:     router,
+		logger:     *customLogger,
+		repository: *vacancy,
 	}
 	h.router.Get("/", h.home)
-	// h.router.Get("/cats", h.categories)
 	h.router.Get("/error", h.error)
 }
 
 func (h *HomeHandler) home(c *fiber.Ctx) error {
-	component := views.Main()
-	return templadapter.Render(c, component)
+	PAGE_ITEMS := 2
+	page := c.QueryInt("page", 1)
+	count := h.repository.CountAll()
+	vacancies, err := h.repository.GetAll(PAGE_ITEMS, (page-1)*PAGE_ITEMS)
+	if err != nil {
+		h.logger.Error().Msg(err.Error())
+		return c.SendStatus(500)
+	}
+	component := views.Main(vacancies, int(math.Ceil(float64(count/PAGE_ITEMS))), page)
+	return templadapter.Render(c, component, http.StatusBadRequest)
 }
 
-// func (h *HomeHandler) categories(c *fiber.Ctx) error {
-// 	cats := []Category{
-// 		{Id: 1, Name: "Еда"},
-// 		{Id: 2, Name: "Животные"},
-// 		{Id: 3, Name: "Машины"},
-// 		{Id: 4, Name: "Спорт"},
-// 		{Id: 5, Name: "Музыка"},
-// 		{Id: 6, Name: "Технологии"},
-// 		{Id: 7, Name: "Прочее"},
-// 	}
-// 	return c.Render("categories", cats)
-// }
-
 func (h *HomeHandler) error(c *fiber.Ctx) error {
-	h.customLogger.Info().Msg("Hello")
+	h.logger.Info().Msg("Hello")
 	return c.SendString("Error")
 }

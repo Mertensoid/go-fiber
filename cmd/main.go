@@ -4,6 +4,7 @@ import (
 	"go-fiber/config"
 	"go-fiber/internal/home"
 	"go-fiber/internal/vacancy"
+	"go-fiber/pkg/database"
 	"go-fiber/pkg/logger"
 
 	"github.com/gofiber/contrib/fiberzerolog"
@@ -13,19 +14,25 @@ import (
 
 func main() {
 	config.Init()
-	config.NewDatabaseConfig()
+	dbConfig := config.NewDatabaseConfig()
 	logConfig := config.NewLogConfig()
 	customLogger := logger.NewLogger(logConfig)
 
 	app := fiber.New()
-
 	app.Use(fiberzerolog.New(fiberzerolog.Config{
 		Logger: customLogger,
 	}))
 	app.Use(recover.New())
 	app.Static("/public", "./public")
 
-	home.NewHandler(app, customLogger)
-	vacancy.NewHandler(app, customLogger)
+	dbpool := database.CreateDbPool(dbConfig, customLogger)
+	defer dbpool.Close()
+
+	// Repositories
+	vacancyRepository := vacancy.NewVacancyRepository(dbpool, customLogger)
+
+	// Handlers
+	home.NewHandler(app, customLogger, vacancyRepository)
+	vacancy.NewHandler(app, customLogger, vacancyRepository)
 	app.Listen(":5001")
 }

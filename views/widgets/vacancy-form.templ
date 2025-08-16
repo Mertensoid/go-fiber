@@ -4,45 +4,50 @@ import "go-fiber/views/components"
 
 templ VacancyForm() {
     @VacancyFormStyle()
-    <div class="main__submit-form">
-                @components.FormTitle("Опубликовать вакансию")
-                <div class="vacancy-result" id="vacancy-result"></div>
-                @components.FormSubtitle("Введите все необходимые данные для публикации")
-                <div >
-                    <form class="input-grid" hx-post="/vacancy" hx-trigger="submit" hx-target="#vacancy-result" hx-swap="innerHTML swap:1s">
-                    
-                        @components.Input(components.InputProps{
-                            Name: "role",
-                            Placeholder: "Должность",
-                        })
-                        @components.Input(components.InputProps{
-                            Name: "company",
-                            Placeholder: "Название компании",
-                        })
-                        @components.Input(components.InputProps{
-                            Name: "sphere",
-                            Placeholder: "Сфера компании",
-                        })
-                        @components.Input(components.InputProps{
-                            Name: "salary",
-                            Placeholder: "Заработная плата",
-                        })
-                        @components.Input(components.InputProps{
-                            Name: "location",
-                            Placeholder: "Расположение",
-                        })
-                        @components.Input(components.InputProps{
-                            Name: "email",
-                            Placeholder: "Контактный e-mail",
-                        })
-                        @components.SubmitButton() {
-                            <div class="vacancy-form__submit">Опубликовать вакансию</div>
-                            <div class="vacancy-form__loader"></div>
-                        }
-                    
-                    </form>
-                </div>  
-            </div>
+    <div class="main__submit-form" hx-ext="response-targets">
+        <div class="vacancy-form-header">
+            @components.FormTitle("Опубликовать вакансию")
+            @components.FormSubtitle("Введите все необходимые данные для публикации")
+        </div>
+        <div class="vacancy-result" id="vacancy-result"></div>
+        <form class="input-grid" 
+            hx-post="/vacancy"  
+            hx-trigger="submit" 
+            hx-target="#vacancy-result" 
+            hx-target-error="#vacancy-result" 
+            hx-swap="innerHTML swap:1s"
+            hx-on::afterRequest="if(event.detail.successful) this.reset()"
+        >
+            @components.Input(components.InputProps{
+                Name: "role",
+                Placeholder: "Должность",
+            })
+            @components.Input(components.InputProps{
+                Name: "company",
+                Placeholder: "Название компании",
+            })
+            @components.Input(components.InputProps{
+                Name: "sphere",
+                Placeholder: "Сфера компании",
+            })
+            @components.Input(components.InputProps{
+                Name: "salary",
+                Placeholder: "Заработная плата",
+            })
+            @components.Input(components.InputProps{
+                Name: "location",
+                Placeholder: "Расположение",
+            })
+            @components.Input(components.InputProps{
+                Name: "email",
+                Placeholder: "Контактный e-mail",
+            })
+            @components.SubmitButton() {
+                <div class="vacancy-form__submit">Опубликовать вакансию</div>
+                <div class="vacancy-form__loader"></div>
+            }
+        </form>
+    </div>        
 }
 
 templ VacancyFormStyle() {
@@ -52,14 +57,22 @@ templ VacancyFormStyle() {
             display: flex;
             flex-direction: column;
             align-items: center;
+            padding-bottom: 120px;
+        }
+        .vacancy-form-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 60px 0;
+            gap: 40px;
         }
         .input-grid {
             display: grid;
             grid-auto-flow: row;
             grid-template-columns: 435px 435px;
             grid-template-rows: repeat(4, 80px);
-            column-gap: 10px;
-            row-gap: 10px;
+            column-gap: 20px;
+            row-gap: 30px;
         }
         .vacancy-result {
             width: 100%;

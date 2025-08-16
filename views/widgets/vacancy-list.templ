@@ -1,0 +1,113 @@
+package widgets
+
+import "go-fiber/internal/vacancy"
+import "go-fiber/views/layout"
+import "go-fiber/views/components"
+import "fmt"
+
+templ VacancyList(vacancies []vacancy.Vacancy, pagesCount int, page int) {
+    @VacancyListStyle()
+    <div class="vacancy-list-wrapper">
+        <div class="vacancy-list-header">
+            @components.FormTitle("Опубликовать вакансию")
+            @components.FormSubtitle("Введите все необходимые данные для публикации")
+        </div>
+        <div class="vacancy-list">
+            for _, vacancy := range vacancies {
+                    @layout.VacancyCard(layout.VacancyCardProps{
+                        Role: vacancy.Role,
+                        Company: vacancy.Company,
+                        Sphere: vacancy.Sphere,
+                        Salary: vacancy.Salary,
+                        Email: vacancy.Email,
+                        Location: vacancy.Location,
+                        Ceratedat: vacancy.CreatedAt,
+                    })
+                }
+            <div class="vacancy-list-footer">
+                if page > 1 {
+                    <a class="vacancy-list-button-active" href={templ.SafeURL(fmt.Sprintf("?page=%d", page-1))}>
+                        <img src="/public/images/left-arrow.svg">
+                        Предыдущие
+                    </a>
+                } else {
+                    <a class="vacancy-list-button-inactive" href={templ.SafeURL(fmt.Sprintf("?page=%d", page-1))}>
+                        <img src="/public/images/left-arrow.svg">
+                        Предыдущие
+                    </a>
+                }
+                if page < pagesCount + 1 {
+                    <a class="vacancy-list-button-active" href={templ.SafeURL(fmt.Sprintf("?page=%d", page+1))}>
+                        Следующие
+                        <img src="/public/images/right-arrow.svg">
+                    </a>
+                } else {
+                    <a class="vacancy-list-button-inactive" href={templ.SafeURL(fmt.Sprintf("?page=%d", page+1))}>
+                        Следующие
+                        <img src="/public/images/right-arrow.svg">
+                    </a>
+                }
+            </div>
+        </div>
+    </div> 
+}
+
+templ VacancyListStyle() {
+    <style>
+        .vacancy-list-wrapper {
+            background-color: white;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .vacancy-list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 90%;
+            max-width: 1296px;
+            gap: 24px;
+            padding-bottom: 60px;
+        }
+        .vacancy-list-header {
+            width: 90%;
+            max-width: 1296px;
+            display: flex;
+            flex-direction: column;
+            margin: 60px 0;
+            gap: 40px;
+        }
+        .vacancy-list-footer {
+            width: 100%;
+            height: 74px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .vacancy-list-button-active {
+            padding: 5px;
+            color: #6C757D;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+        .vacancy-list-button-inactive {
+            padding: 5px;
+            color: #6C757D;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            pointer-events: none;
+            cursor: default;
+            opacity: 0.6;
+        }
+    </style>
+}

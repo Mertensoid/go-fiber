@@ -1,0 +1,42 @@
+package components
+
+templ VacancyCardHeaderContent(role string, company string) {
+    @VacancyCardHeaderContentStyle()
+    <div class="vacancy-card-header-content">
+        <img src="/public/images/vacancy-logo-1.svg" class="vacancy-image"/>
+        <div class="vacancy-card-header-data">
+            <div class="vacancy-card-role">
+                {role}
+            </div>
+            <div class="vacancy-card-company">
+                {company}
+            </div>
+        </div>
+    </div>
+}
+
+templ VacancyCardHeaderContentStyle() {
+    <style>
+        .vacancy-card-header-content {
+            height: 51px;
+            display: flex;
+        }
+        .vacancy-image {
+            height: 40px;
+            width: 40px;
+            margin-right: 20px;
+        }
+        .vacancy-card-header-data {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .vacancy-card-role {
+            font-size: 28px;
+            font-weight: 500;
+        }
+        .vacancy-card-company {
+            font-size: 16px;
+        }
+    </style>
+}

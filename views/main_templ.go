@@ -11,8 +11,9 @@ import templruntime "github.com/a-h/templ/runtime"
 import "go-fiber/views/components"
 import "go-fiber/views/layout"
 import "go-fiber/views/widgets"
+import "go-fiber/internal/vacancy"
 
-func Main() templ.Component {
+func Main(vacancies []vacancy.Vacancy, pagesCount int, page int) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -85,6 +86,10 @@ func Main() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
+			templ_7745c5c3_Err = widgets.VacancyList(vacancies, pagesCount, page).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
 			templ_7745c5c3_Err = widgets.VacancyForm().Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
@@ -127,7 +132,7 @@ func MainStyle() templ.Component {
 			templ_7745c5c3_Var4 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<style>\n        .main {\n            background-color: var(--color-primary-back);\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n        }\n    </style>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<style>\n        .main {\n            width: 100%;\n            background-color: var(--color-primary-back);\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n        }\n    </style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

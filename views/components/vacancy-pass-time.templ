@@ -1,0 +1,29 @@
+package components
+
+import "time"
+import "github.com/rvflash/elapsed"
+
+templ VacancyPassTime(time time.Time) {
+    {{ date := elapsed.LocalTime(time, "ru")}}
+    @VacancyPassTimeStyle()
+    <div class="vacancy-pass-time">
+        {date}
+    </div>
+}
+
+templ VacancyPassTimeStyle() {
+    <style>
+        .vacancy-pass-time {
+            height: 28px;
+            padding: 5px;
+            width: min-content;
+            background-color: #30968910;
+            color: #309689;
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+            font-size: 16px;
+            white-space: nowrap;
+        }
+    </style>
+}

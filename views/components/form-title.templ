@@ -2,10 +2,9 @@ package components
 
 templ FormTitle(title string) {
     @FormTitleStyle()
-    <h1 class="form-title">
+    <div class="form-title">
         {title}
-    </h1>
-    
+    </div>
 }
 
 templ FormTitleStyle() {
@@ -14,8 +13,6 @@ templ FormTitleStyle() {
         font-size: 40px;
         color: var(--color-black);
         font-weight: bold;
-        margin-bottom: 40px;
-        margin-top: 0px;
     }
     </style>
 }

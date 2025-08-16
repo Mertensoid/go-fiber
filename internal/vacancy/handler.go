@@ -4,10 +4,8 @@ import (
 	"go-fiber/pkg/templadapter"
 	"go-fiber/pkg/validator"
 	"go-fiber/views/components"
-	"strconv"
-	"time"
+	"net/http"
 
-	"github.com/a-h/templ"
 	"github.com/gobuffalo/validate"
 	"github.com/gobuffalo/validate/validators"
 	"github.com/gofiber/fiber/v2"
@@ -15,30 +13,30 @@ import (
 )
 
 type VacancyHandler struct {
-	router fiber.Router
-	logger *zerolog.Logger
+	router     fiber.Router
+	logger     *zerolog.Logger
+	repository *VacancyRepository
 }
 
-func NewHandler(router fiber.Router, logger *zerolog.Logger) {
+func NewHandler(router fiber.Router, logger *zerolog.Logger, repository *VacancyRepository) {
 	h := &VacancyHandler{
-		router: router,
-		logger: logger,
+		router:     router,
+		logger:     logger,
+		repository: repository,
 	}
 	vacancyGroup := h.router.Group("/vacancy")
 	vacancyGroup.Post("/", h.createVacancy)
 }
 
 func (h *VacancyHandler) createVacancy(c *fiber.Ctx) error {
-	salary, _ := strconv.ParseInt(c.FormValue("salary"), 10, 64)
 	form := VacancyCreateForm{
 		Role:     c.FormValue("role"),
 		Company:  c.FormValue("company"),
 		Sphere:   c.FormValue("sphere"),
-		Salary:   int(salary),
+		Salary:   c.FormValue("salary"),
 		Location: c.FormValue("location"),
 		Email:    c.FormValue("email"),
 	}
-	time.Sleep(time.Second * 2)
 	errors := validate.Validate(
 		&validators.StringIsPresent{
 			Name:    "Role",
@@ -55,11 +53,10 @@ func (h *VacancyHandler) createVacancy(c *fiber.Ctx) error {
 			Field:   form.Sphere,
 			Message: "Сфера деятельности компании не задана",
 		},
-		&validators.IntIsGreaterThan{
-			Name:     "Salary",
-			Field:    form.Salary,
-			Compared: 0,
-			Message:  "Зароботная плата не задана",
+		&validators.StringIsPresent{
+			Name:    "Salary",
+			Field:   form.Salary,
+			Message: "Зароботная плата не задана",
 		},
 		&validators.StringIsPresent{
 			Name:    "Location",
@@ -73,11 +70,16 @@ func (h *VacancyHandler) createVacancy(c *fiber.Ctx) error {
 		},
 	)
 
-	var component templ.Component
 	if len(errors.Errors) > 0 {
-		component = components.Notification(validator.ParseErrors(*errors), components.NotificationFail)
-	} else {
-		component = components.Notification("Вакансия успешно создана", components.NotificationSuccess)
+		component := components.Notification(validator.ParseErrors(*errors), components.NotificationFail)
+		return templadapter.Render(c, component, http.StatusBadRequest)
 	}
-	return templadapter.Render(c, component)
+	err := h.repository.addVacancy(form)
+	if err != nil {
+		h.logger.Error().Msg(err.Error())
+		component := components.Notification("Ошибка на сервере", components.NotificationFail)
+		return templadapter.Render(c, component, http.StatusBadRequest)
+	}
+	component := components.Notification("Вакансия успешно создана", components.NotificationSuccess)
+	return templadapter.Render(c, component, http.StatusOK)
 }
