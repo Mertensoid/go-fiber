@@ -40,6 +40,7 @@ func NewHandler(router fiber.Router, customLogger *zerolog.Logger, vacancy *vaca
 	h.router.Get("/", h.home)
 	h.router.Get("/error", h.error)
 	h.router.Get("/login", h.login)
+	h.router.Get("/registration", h.registration)
 }
 
 func (h *HomeHandler) home(c *fiber.Ctx) error {
@@ -75,6 +76,11 @@ func (h *HomeHandler) login(c *fiber.Ctx) error {
 	if err := session.Save(); err != nil {
 		panic(err)
 	}
+	return templadapter.Render(c, component, http.StatusOK)
+}
+
+func (h *HomeHandler) registration(c *fiber.Ctx) error {
+	component := pages.Registration()
 	return templadapter.Render(c, component, http.StatusOK)
 }
 

@@ -3,6 +3,7 @@ package main
 import (
 	"go-fiber/config"
 	"go-fiber/internal/home"
+	"go-fiber/internal/users"
 	"go-fiber/internal/vacancy"
 	"go-fiber/pkg/database"
 	"go-fiber/pkg/logger"
@@ -42,9 +43,11 @@ func main() {
 
 	// Repositories
 	vacancyRepository := vacancy.NewVacancyRepository(dbpool, customLogger)
+	usersRepository := users.NewUserRepository(dbpool, customLogger)
 
 	// Handlers
 	home.NewHandler(app, customLogger, vacancyRepository, store)
 	vacancy.NewHandler(app, customLogger, vacancyRepository)
+	users.NewHandler(app, customLogger, usersRepository)
 	app.Listen(":5001")
 }

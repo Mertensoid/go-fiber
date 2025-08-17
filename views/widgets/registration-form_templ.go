@@ -10,7 +10,7 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import "go-fiber/views/components"
 
-func LoginForm() templ.Component {
+func RegistrationForm() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -31,27 +31,27 @@ func LoginForm() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = LoginFormStyle().Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = RegistrationFormStyle().Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"login-widget\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"registration-widget\" hx-ext=\"response-targets\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = components.Title("Войти на сайт").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Title("Регистрация").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<div class=\"login-result\" id=\"login-result\"></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<div class=\"registration-result\" id=\"registration-result\"></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = components.Subtitle("Войдите под своей учётной записью").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.Subtitle("Создайте аккаунт, чтобы опубликовать вакансию").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<form class=\"login-form\" hx-post=\"/\" hx-trigger=\"submit\" hx-target=\"#login-result\" hx-swap=\"innerHTML\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<form class=\"registration-form\" hx-post=\"/registration\" hx-trigger=\"submit\" hx-target=\"#registration-result\" hx-target-error=\"#registration-result\" hx-swap=\"innerHTML swap:1s\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -69,6 +69,13 @@ func LoginForm() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
+		templ_7745c5c3_Err = components.Input(components.InputProps{
+			Placeholder: "Имя пользователя",
+			Name:        "name",
+		}).Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		templ_7745c5c3_Var2 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -81,7 +88,7 @@ func LoginForm() templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<div>Войти на сайт</div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "<div>Создать аккаунт</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -99,7 +106,7 @@ func LoginForm() templ.Component {
 	})
 }
 
-func LoginFormStyle() templ.Component {
+func RegistrationFormStyle() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -120,7 +127,7 @@ func LoginFormStyle() templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<style>\n        .login-widget {\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            gap: 12px;\n            margin-bottom: 80px;\n        }\n        .login-form {\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            gap: 30px;\n        }\n        .login-result {\n\n        }\n    </style>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 6, "<style>\n        .registration-widget {\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            gap: 12px;\n            margin-bottom: 80px;\n        }\n        .registration-form {\n            display: flex;\n            flex-direction: column;\n            align-items: center;\n            gap: 30px;\n        }\n        .registration-result {\n            width: 100%;\n        }\n    </style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
