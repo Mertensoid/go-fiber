@@ -42,11 +42,11 @@ func VacancyList(vacancies []vacancy.Vacancy, pagesCount int, page int) templ.Co
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = components.FormTitle("Опубликовать вакансию").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.FormTitle("Последние вакансии").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = components.FormSubtitle("Введите все необходимые данные для публикации").Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = components.FormSubtitle("Найдите подходящую вакансию за пару минут!").Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -9,8 +9,8 @@ templ VacancyList(vacancies []vacancy.Vacancy, pagesCount int, page int) {
     @VacancyListStyle()
     <div class="vacancy-list-wrapper">
         <div class="vacancy-list-header">
-            @components.FormTitle("Опубликовать вакансию")
-            @components.FormSubtitle("Введите все необходимые данные для публикации")
+            @components.FormTitle("Последние вакансии")
+            @components.FormSubtitle("Найдите подходящую вакансию за пару минут!")
         </div>
         <div class="vacancy-list">
             for _, vacancy := range vacancies {

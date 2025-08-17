@@ -6,10 +6,13 @@ import (
 	"go-fiber/internal/vacancy"
 	"go-fiber/pkg/database"
 	"go-fiber/pkg/logger"
+	"time"
 
 	"github.com/gofiber/contrib/fiberzerolog"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/recover"
+	"github.com/gofiber/fiber/v2/middleware/session"
+	"github.com/gofiber/storage/postgres/v3"
 )
 
 func main() {
@@ -27,12 +30,21 @@ func main() {
 
 	dbpool := database.CreateDbPool(dbConfig, customLogger)
 	defer dbpool.Close()
+	storage := postgres.New(postgres.Config{
+		DB:         dbpool,
+		Table:      "fiber_storage",
+		Reset:      false,
+		GCInterval: 10 * time.Second,
+	})
+	store := session.New(session.Config{
+		Storage: storage,
+	})
 
 	// Repositories
 	vacancyRepository := vacancy.NewVacancyRepository(dbpool, customLogger)
 
 	// Handlers
-	home.NewHandler(app, customLogger, vacancyRepository)
+	home.NewHandler(app, customLogger, vacancyRepository, store)
 	vacancy.NewHandler(app, customLogger, vacancyRepository)
 	app.Listen(":5001")
 }
