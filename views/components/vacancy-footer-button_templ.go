@@ -62,7 +62,7 @@ func VacancyFooterButtonStyle() templ.Component {
 			templ_7745c5c3_Var2 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<style>\n        .vacancy-footer-button {\n            height: 40px;\n            width: min-content;\n            padding: 0 20px;\n            border-radius: 10px;\n            color: white;\n            background-color: #309689;\n            display: flex;\n            align-items: center;\n        }\n    </style>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "<style>\n        .vacancy-footer-button {\n            height: 40px;\n            width: min-content;\n            padding: 0 20px;\n            border-radius: 10px;\n            color: white;\n            background-color: var(--color-primary);\n            display: flex;\n            align-items: center;\n        }\n        .vacancy-footer-button:hover {\n            background-color: var(--color-primary-hover);\n            cursor: pointer;\n        }\n    </style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

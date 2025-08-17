@@ -66,9 +66,7 @@ func Main(vacancies []vacancy.Vacancy, pagesCount int, page int) templ.Component
 					}()
 				}
 				ctx = templ.InitializeContext(ctx)
-				templ_7745c5c3_Err = components.Title(components.TitleProps{
-					Title: "Найди работу своей мечты",
-				}).Render(ctx, templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = components.Title("Найди работу своей мечты").Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

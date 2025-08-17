@@ -4,6 +4,7 @@ import (
 	"go-fiber/internal/vacancy"
 	"go-fiber/pkg/templadapter"
 	"go-fiber/views"
+	"go-fiber/views/pages"
 	"math"
 	"net/http"
 
@@ -35,6 +36,7 @@ func NewHandler(router fiber.Router, customLogger *zerolog.Logger, vacancy *vaca
 	}
 	h.router.Get("/", h.home)
 	h.router.Get("/error", h.error)
+	h.router.Get("/login", h.login)
 }
 
 func (h *HomeHandler) home(c *fiber.Ctx) error {
@@ -47,7 +49,12 @@ func (h *HomeHandler) home(c *fiber.Ctx) error {
 		return c.SendStatus(500)
 	}
 	component := views.Main(vacancies, int(math.Ceil(float64(count/PAGE_ITEMS))), page)
-	return templadapter.Render(c, component, http.StatusBadRequest)
+	return templadapter.Render(c, component, http.StatusOK)
+}
+
+func (h *HomeHandler) login(c *fiber.Ctx) error {
+	component := pages.Login()
+	return templadapter.Render(c, component, http.StatusOK)
 }
 
 func (h *HomeHandler) error(c *fiber.Ctx) error {

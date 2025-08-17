@@ -1,0 +1,22 @@
+package pages
+
+import "go-fiber/views/layout"
+import "go-fiber/views/widgets"
+
+templ Login() {
+    @LoginStyle()
+    @layout.Layout(layout.LayoutProps{
+        Title: "Найди работу мечты",
+        MetaDescription: "Сайт по поиску работы мечты",
+    }) {
+        @layout.Header() {
+            @widgets.LoginForm()
+        }
+    }
+}
+
+templ LoginStyle() {
+     <style>
+
+    </style>
+}
