@@ -47,17 +47,6 @@ func NewHandler(router fiber.Router, customLogger *zerolog.Logger, vacancy *vaca
 func (h *HomeHandler) home(c *fiber.Ctx) error {
 	PAGE_ITEMS := 2
 	page := c.QueryInt("page", 1)
-
-	session, err := h.store.Get(c)
-	if err != nil {
-		panic(err)
-	}
-	userEmail := ""
-	if email, ok := session.Get("email").(string); ok {
-		userEmail = email
-	}
-	c.Locals("email", userEmail)
-
 	count := h.repository.CountAll()
 	vacancies, err := h.repository.GetAll(PAGE_ITEMS, (page-1)*PAGE_ITEMS)
 	if err != nil {
@@ -71,15 +60,6 @@ func (h *HomeHandler) home(c *fiber.Ctx) error {
 
 func (h *HomeHandler) login(c *fiber.Ctx) error {
 	component := pages.Login()
-	session, err := h.store.Get(c)
-	if err != nil {
-		panic(err)
-	}
-	userEmail := ""
-	if email, ok := session.Get("email").(string); ok {
-		userEmail = email
-	}
-	c.Locals("email", userEmail)
 	return templadapter.Render(c, component, http.StatusOK)
 }
 
@@ -98,15 +78,6 @@ func (h *HomeHandler) logout(c *fiber.Ctx) error {
 
 func (h *HomeHandler) registration(c *fiber.Ctx) error {
 	component := pages.Registration()
-	session, err := h.store.Get(c)
-	if err != nil {
-		panic(err)
-	}
-	userEmail := ""
-	if email, ok := session.Get("email").(string); ok {
-		userEmail = email
-	}
-	c.Locals("email", userEmail)
 	return templadapter.Render(c, component, http.StatusOK)
 }
 
