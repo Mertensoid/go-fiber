@@ -113,9 +113,7 @@ func (h *UsersHandler) checkUser(c *fiber.Ctx) error {
 		panic(err)
 	}
 
-	// TODO - Перенаправить на главную
-	// c.Redirect("/")
-	// return nil
-	component := components.Notification("Вы вошли в систему", components.NotificationSuccess)
-	return templadapter.Render(c, component, http.StatusOK)
+	// Перенаправление на главную
+	c.Response().Header.Add("Hx-Redirect", "/")
+	return c.Redirect("/", http.StatusOK)
 }

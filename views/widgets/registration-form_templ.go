@@ -65,6 +65,7 @@ func RegistrationForm() templ.Component {
 		templ_7745c5c3_Err = components.Input(components.InputProps{
 			Placeholder: "Пароль",
 			Name:        "password",
+			Type:        "password",
 		}).Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
