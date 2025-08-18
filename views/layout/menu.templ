@@ -9,7 +9,16 @@ templ Menu() {
             <img src="/public/images/logo.svg" />
         </a>
         <div class="menu__right">
-            <a class="menu__right-link" href="/login">Войти</a>
+            {{ email := ctx.Value("email").(string) }}
+            if email == "" {
+                <a class="menu__right-link" href="/login">Войти</a>
+            } else {
+                <div class="user-email">{email}</div>
+                <a class="menu__right-link" 
+                    hx-get="/logout"
+                    hx-trigger="click"
+                >Выйти</a>
+            }
             @components.LinkButton("/registration") {
                 <span>Зарегистрироваться</span>
             }
@@ -38,6 +47,10 @@ templ MenuStyle() {
             color: #FFFFFF;
             font-size: 16px;
             cursor: pointer;
+        }
+        .user-email {
+            color: #FFFFFF;
+            font-size: 16px;
         }
         .menu__right-link:hover {
             color: #9f9f9f;

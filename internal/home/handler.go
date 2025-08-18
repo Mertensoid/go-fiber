@@ -41,6 +41,7 @@ func NewHandler(router fiber.Router, customLogger *zerolog.Logger, vacancy *vaca
 	h.router.Get("/error", h.error)
 	h.router.Get("/login", h.login)
 	h.router.Get("/registration", h.registration)
+	h.router.Get("/logout", h.logout)
 }
 
 func (h *HomeHandler) home(c *fiber.Ctx) error {
@@ -51,9 +52,11 @@ func (h *HomeHandler) home(c *fiber.Ctx) error {
 	if err != nil {
 		panic(err)
 	}
-	if name, ok := session.Get("email").(string); ok {
-		h.logger.Info().Msg(name)
+	userEmail := ""
+	if email, ok := session.Get("email").(string); ok {
+		userEmail = email
 	}
+	c.Locals("email", userEmail)
 
 	count := h.repository.CountAll()
 	vacancies, err := h.repository.GetAll(PAGE_ITEMS, (page-1)*PAGE_ITEMS)
@@ -68,11 +71,42 @@ func (h *HomeHandler) home(c *fiber.Ctx) error {
 
 func (h *HomeHandler) login(c *fiber.Ctx) error {
 	component := pages.Login()
+	session, err := h.store.Get(c)
+	if err != nil {
+		panic(err)
+	}
+	userEmail := ""
+	if email, ok := session.Get("email").(string); ok {
+		userEmail = email
+	}
+	c.Locals("email", userEmail)
 	return templadapter.Render(c, component, http.StatusOK)
+}
+
+func (h *HomeHandler) logout(c *fiber.Ctx) error {
+	session, err := h.store.Get(c)
+	if err != nil {
+		panic(err)
+	}
+	session.Delete("email")
+	if err := session.Save(); err != nil {
+		panic(err)
+	}
+	c.Response().Header.Add("Hx-Redirect", "/")
+	return c.Redirect("/", http.StatusOK)
 }
 
 func (h *HomeHandler) registration(c *fiber.Ctx) error {
 	component := pages.Registration()
+	session, err := h.store.Get(c)
+	if err != nil {
+		panic(err)
+	}
+	userEmail := ""
+	if email, ok := session.Get("email").(string); ok {
+		userEmail = email
+	}
+	c.Locals("email", userEmail)
 	return templadapter.Render(c, component, http.StatusOK)
 }
 
