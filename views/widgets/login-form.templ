@@ -4,14 +4,15 @@ import "go-fiber/views/components"
 
 templ LoginForm() {
     @LoginFormStyle()
-    <div class="login-widget">
+    <div class="login-widget" hx-ext="response-targets">
         @components.Title("Войти на сайт")
         <div class="login-result" id="login-result"></div>
         @components.Subtitle("Войдите под своей учётной записью")
         <form class="login-form" 
-            hx-post="/"  
+            hx-post="/login"  
             hx-trigger="submit" 
-            hx-target="#login-result" 
+            hx-target="#login-result"
+            hx-target-error="#login-result"  
             hx-swap="innerHTML"
         >
             @components.Input(components.InputProps{
@@ -45,7 +46,7 @@ templ LoginFormStyle() {
             gap: 30px;
         }
         .login-result {
-
+            width: 100%;
         }
     </style>
 }

@@ -13,7 +13,7 @@ templ RegistrationForm() {
             hx-trigger="submit" 
             hx-target="#registration-result" 
             hx-target-error="#registration-result"
-            hx-swap="innerHTML swap:1s"
+            hx-swap="innerHTML"
         >
             @components.Input(components.InputProps{
                 Placeholder: "Email",

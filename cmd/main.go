@@ -33,7 +33,7 @@ func main() {
 	defer dbpool.Close()
 	storage := postgres.New(postgres.Config{
 		DB:         dbpool,
-		Table:      "fiber_storage",
+		Table:      "sessions",
 		Reset:      false,
 		GCInterval: 10 * time.Second,
 	})
@@ -48,6 +48,6 @@ func main() {
 	// Handlers
 	home.NewHandler(app, customLogger, vacancyRepository, store)
 	vacancy.NewHandler(app, customLogger, vacancyRepository)
-	users.NewHandler(app, customLogger, usersRepository)
+	users.NewHandler(app, customLogger, usersRepository, store)
 	app.Listen(":5001")
 }

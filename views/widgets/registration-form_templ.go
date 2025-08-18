@@ -51,7 +51,7 @@ func RegistrationForm() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<form class=\"registration-form\" hx-post=\"/registration\" hx-trigger=\"submit\" hx-target=\"#registration-result\" hx-target-error=\"#registration-result\" hx-swap=\"innerHTML swap:1s\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<form class=\"registration-form\" hx-post=\"/registration\" hx-trigger=\"submit\" hx-target=\"#registration-result\" hx-target-error=\"#registration-result\" hx-swap=\"innerHTML\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

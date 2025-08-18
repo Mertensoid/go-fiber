@@ -2,6 +2,7 @@ package users
 
 import (
 	"context"
+	"errors"
 	"go-fiber/pkg/cryptograf"
 	"time"
 
@@ -48,4 +49,20 @@ func (r *UserRepository) addUser(form RegistrationForm) error {
 	}
 	_, err = r.dbpool.Exec(context.Background(), query, args)
 	return err
+}
+
+// Проверка данных пользователя
+func (r *UserRepository) checkUser(form LoginForm) (User, error) {
+	query := `SELECT * FROM users WHERE email = $1`
+	user := User{}
+	err := r.dbpool.QueryRow(context.Background(), query, form.Email).Scan(&user.Id,
+		&user.Email, &user.Password, &user.Name, &user.Registered)
+	if err != nil {
+		r.logger.Error().Msg(err.Error())
+		return User{}, err
+	}
+	if !cryptograf.CheckPasswordHash(form.Password, user.Password) {
+		return User{}, errors.New("Incorrect password")
+	}
+	return user, nil
 }

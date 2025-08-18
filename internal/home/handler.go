@@ -51,7 +51,7 @@ func (h *HomeHandler) home(c *fiber.Ctx) error {
 	if err != nil {
 		panic(err)
 	}
-	if name, ok := session.Get("name").(string); ok {
+	if name, ok := session.Get("email").(string); ok {
 		h.logger.Info().Msg(name)
 	}
 
@@ -68,14 +68,6 @@ func (h *HomeHandler) home(c *fiber.Ctx) error {
 
 func (h *HomeHandler) login(c *fiber.Ctx) error {
 	component := pages.Login()
-	session, err := h.store.Get(c)
-	if err != nil {
-		panic(err)
-	}
-	session.Set("name", "Антон")
-	if err := session.Save(); err != nil {
-		panic(err)
-	}
 	return templadapter.Render(c, component, http.StatusOK)
 }
 
