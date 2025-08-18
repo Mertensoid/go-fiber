@@ -75,7 +75,7 @@ func SubTitleStyle() templ.Component {
 			templ_7745c5c3_Var3 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<style>\n    .subtitle {\n        font-size: { \"16px\" };\n        color: var(--color-white);\n        margin-bottom: { \"0px\" };\n        margin-top: { \"0px\" };\n    }\n    </style>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "<style>\n    .subtitle {\n        font-size: 18px;\n        color: var(--color-white);\n        margin-bottom: 12px;\n        margin-top: 0px;\n    }\n    </style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -1,0 +1,22 @@
+package pages
+
+import "go-fiber/views/layout"
+import "go-fiber/views/widgets"
+
+templ Registration() {
+    @RegistrationStyle()
+    @layout.Layout(layout.LayoutProps{
+        Title: "Регистрация",
+        MetaDescription: "Регистрация на сайте по поиску работы мечты",
+    }) {
+        @layout.Header() {
+            @widgets.RegistrationForm()
+        }
+    }
+}
+
+templ RegistrationStyle() {
+     <style>
+
+    </style>
+}

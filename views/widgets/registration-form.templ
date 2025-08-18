@@ -1,0 +1,57 @@
+package widgets
+
+import "go-fiber/views/components"
+
+templ RegistrationForm() {
+    @RegistrationFormStyle()
+    <div class="registration-widget" hx-ext="response-targets">
+        @components.Title("Регистрация")
+        <div class="registration-result" id="registration-result"></div>
+        @components.Subtitle("Создайте аккаунт, чтобы опубликовать вакансию")
+        <form class="registration-form" 
+            hx-post="/registration"  
+            hx-trigger="submit" 
+            hx-target="#registration-result" 
+            hx-target-error="#registration-result"
+            hx-swap="innerHTML"
+        >
+            @components.Input(components.InputProps{
+                Placeholder: "Email",
+                Name: "email",
+            })
+            @components.Input(components.InputProps{
+                Placeholder: "Пароль",
+                Name: "password",
+                Type: "password",
+            })
+            @components.Input(components.InputProps{
+                Placeholder: "Имя пользователя",
+                Name: "name",
+            })
+            @components.SubmitButton() {
+                <div>Создать аккаунт</div>
+            }
+        </form>
+    </div>
+}
+
+templ RegistrationFormStyle() {
+    <style>
+        .registration-widget {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 80px;
+        }
+        .registration-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        .registration-result {
+            width: 100%;
+        }
+    </style>
+}

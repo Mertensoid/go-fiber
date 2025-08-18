@@ -4,17 +4,20 @@ import (
 	"go-fiber/internal/vacancy"
 	"go-fiber/pkg/templadapter"
 	"go-fiber/views"
+	"go-fiber/views/pages"
 	"math"
 	"net/http"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/session"
 	"github.com/rs/zerolog"
 )
 
 type HomeHandler struct {
 	router     fiber.Router
-	logger     zerolog.Logger
-	repository vacancy.VacancyRepository
+	logger     *zerolog.Logger
+	repository *vacancy.VacancyRepository
+	store      *session.Store
 }
 
 type User struct {
@@ -27,14 +30,18 @@ type Category struct {
 	Name string
 }
 
-func NewHandler(router fiber.Router, customLogger *zerolog.Logger, vacancy *vacancy.VacancyRepository) {
+func NewHandler(router fiber.Router, customLogger *zerolog.Logger, vacancy *vacancy.VacancyRepository, store *session.Store) {
 	h := &HomeHandler{
 		router:     router,
-		logger:     *customLogger,
-		repository: *vacancy,
+		logger:     customLogger,
+		repository: vacancy,
+		store:      store,
 	}
 	h.router.Get("/", h.home)
 	h.router.Get("/error", h.error)
+	h.router.Get("/login", h.login)
+	h.router.Get("/registration", h.registration)
+	h.router.Get("/logout", h.logout)
 }
 
 func (h *HomeHandler) home(c *fiber.Ctx) error {
@@ -46,8 +53,32 @@ func (h *HomeHandler) home(c *fiber.Ctx) error {
 		h.logger.Error().Msg(err.Error())
 		return c.SendStatus(500)
 	}
+
 	component := views.Main(vacancies, int(math.Ceil(float64(count/PAGE_ITEMS))), page)
-	return templadapter.Render(c, component, http.StatusBadRequest)
+	return templadapter.Render(c, component, http.StatusOK)
+}
+
+func (h *HomeHandler) login(c *fiber.Ctx) error {
+	component := pages.Login()
+	return templadapter.Render(c, component, http.StatusOK)
+}
+
+func (h *HomeHandler) logout(c *fiber.Ctx) error {
+	session, err := h.store.Get(c)
+	if err != nil {
+		panic(err)
+	}
+	session.Delete("email")
+	if err := session.Save(); err != nil {
+		panic(err)
+	}
+	c.Response().Header.Add("Hx-Redirect", "/")
+	return c.Redirect("/", http.StatusOK)
+}
+
+func (h *HomeHandler) registration(c *fiber.Ctx) error {
+	component := pages.Registration()
+	return templadapter.Render(c, component, http.StatusOK)
 }
 
 func (h *HomeHandler) error(c *fiber.Ctx) error {

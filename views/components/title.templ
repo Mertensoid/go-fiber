@@ -1,25 +1,21 @@
 package components
 
-type TitleProps struct {
-    Title string
-}
-
-templ Title(props TitleProps) {
+templ Title(title string) {
     @TitleStyle()
-    <h1 class="title">
-        {props.Title}
-    </h1>
+    <div class="title">
+        {title}
+    </div>
     
 }
 
 templ TitleStyle() {
     <style>
     .title {
-        font-size: { "70px" };
+        font-size: 70px;
         color: var(--color-white);
-        font-weight: { "bold" };
-        margin-bottom: { "12px" };
-        margin-top: { "0px" };
+        font-weight: bold;
+        margin-bottom: 12px;
+        margin-top: 0px;
     }
     </style>
 }

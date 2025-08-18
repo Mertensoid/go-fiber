@@ -13,9 +13,7 @@ templ Main(vacancies []vacancy.Vacancy, pagesCount int, page int) {
     }) {
         <main class="main">
             @layout.Header() {
-                @components.Title(components.TitleProps{
-                    Title: "Найди работу своей мечты",
-                })
+                @components.Title("Найди работу своей мечты")
                 @components.Subtitle("Простой поиск работы")    
             }
             @widgets.VacancyList(vacancies, pagesCount, page)
